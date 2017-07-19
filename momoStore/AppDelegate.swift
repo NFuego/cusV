@@ -184,7 +184,7 @@ extension AppDelegate {
         window?.backgroundColor = .white
 		window?.makeKeyAndVisible()
         
-        let rootVC = login
+        let rootVC = rootV
         
 		window?.rootViewController = rootVC
 		window?.backgroundColor = .white

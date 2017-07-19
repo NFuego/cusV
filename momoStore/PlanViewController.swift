@@ -1,18 +1,6 @@
-//
-//  PlanViewController.swift
-//  Project: momoCustomer
-//
-//  Module: Plan
-//
-//  By ssstand 2017/3/12
-//  MomoDidi 2017年
-//
-
-// MARK: Imports
-
-
 import UIKit
 import SwiftyJSON
+import Toucan
 
 import SwiftyVIPER
 import ListKit
@@ -40,10 +28,14 @@ struct StoreItemInfo {
 class StoreItemCell: UITableViewCell, ListKitCellProtocol {
     let imv:UIImageView
     let itemName:UILabel
+    let imvCrown:UIImageView
+    let imvArrow:UIImageView
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         itemName = UILabel()
         imv = UIImageView()
+        imvCrown = UIImageView()
+        imvArrow = UIImageView()
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.selectionStyle = .none
@@ -59,29 +51,66 @@ class StoreItemCell: UITableViewCell, ListKitCellProtocol {
         didSet {
             if let urlStr = model?.imgURL {
                 let url =  URL(string:MDAppURI.imgURL + urlStr)
-                imv.kf.setImage(with: url)
+                imv.kf.setImage(with: url,completionHandler: {
+                    (image, error, cacheType, imageUrl) in
+                      self.imv.image = Toucan(image: self.imv.image!).maskWithEllipse(borderWidth: 2, borderColor: UIColor.mmdd.mainCr).image
+                    self.layout()
+                })
             } else {
                 // TODO
                 //                imv.kf.setImage(with: <#T##Resource?#>)
             }
+        }
+    } // fin model
+    
+    
+    func layout(){
             self.contentView.addSubview(imv)
-            self.imv.snp.makeConstraints { (make) in
-                make.centerY.equalToSuperview()
-                make.leading.equalToSuperview().offset(5)
-                make.width.equalTo(50)
-                make.height.equalTo(50)
+            // Pet img
+            if let img = imv.image {
+                self.imv.snp.makeConstraints { (make) in
+                    make.centerY.equalToSuperview()
+                    make.leading.equalToSuperview().offset(65)
+                    make.width.equalTo(65)
+                    make.height.equalTo(65)
+                }
+            }
+        
+            // Crown 
+            if let imgCrown = UIImage(named: "u2_004") {
+                self.imvCrown.image = imgCrown
+                self.contentView.addSubview(self.imvCrown)
+                imvCrown.snp.makeConstraints({ (make) in
+                    make.centerX.equalTo(imv.snp.centerX).offset(20)
+                    make.bottom.equalTo(imv.snp.top)
+                    make.width.equalTo(imgCrown.size.width / UIScreen.bl.scale())
+                    make.height.equalTo(imgCrown.size.height / UIScreen.bl.scale())
+                })
             }
             
+            // Arrow
+            if let imgArrow = UIImage(named: "u2_006") {
+                self.imvArrow.image = imgArrow
+                self.contentView.addSubview(self.imvArrow)
+                imvArrow.snp.makeConstraints({ (make) in
+                    make.centerY.equalToSuperview()
+                    make.left.equalTo(imv.snp.right).offset(10)
+                    make.width.equalTo(imgArrow.size.width / UIScreen.bl.scale())
+                    make.height.equalTo(imgArrow.size.height / UIScreen.bl.scale())
+                })
+            }
+        
+            // Pet Name
             itemName.text = model?.name
+            itemName.textColor = UIColor.mmdd.mainCr
             self.contentView.addSubview(itemName)
             self.itemName.snp.makeConstraints { (make) in
                 make.centerY.equalToSuperview()
-                make.left.equalTo(imv.snp.right).offset(10)
-                make.width.equalTo(50)
+                make.left.equalTo(imvArrow.snp.right).offset(10)
+                make.width.equalTo(120)
                 make.height.equalTo(50)
             }
-        }
-    } // fin model
+    } // fin layout
 }
 
 
@@ -342,7 +371,7 @@ extension PlanViewController: PlanPresenterViewProtocol {
 //    }
 //    
 //    override func didSelect(listView: UITableView, idx: IndexPath) {
-//        
+//
 //        let opt = list[idx.row]
 //        MDApp.store.opt = opt
 //        let nav = UINavigationController(rootViewController: storeMain)
@@ -393,7 +422,7 @@ extension PlanViewController: UITableViewDataSource {
 
 extension PlanViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 72
+        return 104
     }
 
     //If you want to change title

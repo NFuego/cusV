@@ -1,12 +1,4 @@
-//
-//  PetListViewController.swift
-//  Project: EscanTest
-//
-//  Module: PetList
-//
-//  By zcon 2017/4/6
-//  zcon 2017年
-//
+
 
 // MARK: Imports
 import UIKit
@@ -18,6 +10,8 @@ import RxSwift
 import RxCocoa
 import SwiftyJSON
 import RxAlamofire
+import Toucan
+
 
 struct PetItemInfo {
     var imgURL:String
@@ -33,10 +27,19 @@ struct PetItemInfo {
 class PetItemCell: UITableViewCell, ListKitCellProtocol {
     let imv:UIImageView
     let itemName:UILabel
+    let imvCrown:UIImageView
+    let imvArrow:UIImageView
+    let imvPen:UIImageView
+    let lbEdit:UILabel
     
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         itemName = UILabel()
         imv = UIImageView()
+        imvCrown = UIImageView()
+        imvArrow = UIImageView()
+        imvPen = UIImageView()
+        lbEdit = UILabel()
+        
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.selectionStyle = .none
@@ -52,29 +55,88 @@ class PetItemCell: UITableViewCell, ListKitCellProtocol {
         didSet {
             if let urlStr = model?.imgURL {
                 let url =  URL(string:MDAppURI.imgURL + urlStr)
-                imv.kf.setImage(with: url)
+                
+                imv.kf.setImage(with: url,completionHandler: {
+                    (image, error, cacheType, imageUrl) in
+                      self.imv.image = Toucan(image: self.imv.image!).maskWithEllipse(borderWidth: 2, borderColor: UIColor.mmdd.mainCr).image
+                    self.layout()
+                })
             } else {
-                // TODO
-                //                imv.kf.setImage(with: <#T##Resource?#>)
-            }
-            self.contentView.addSubview(imv)
-            self.imv.snp.makeConstraints { (make) in
-                make.centerY.equalToSuperview()
-                make.leading.equalToSuperview().offset(5)
-                make.width.equalTo(50)
-                make.height.equalTo(50)
-            }
-            
-            itemName.text = model?.name
-            self.contentView.addSubview(itemName)
-            self.itemName.snp.makeConstraints { (make) in
-                make.centerY.equalToSuperview()
-                make.left.equalTo(imv.snp.right).offset(10)
-                make.width.equalTo(50)
-                make.height.equalTo(50)
+                self.layout()
             }
         }
     } // fin model
+    
+    func layout(){
+            self.contentView.addSubview(imv)
+            // Pet img
+            if let img = imv.image {
+                self.imv.snp.makeConstraints { (make) in
+                    make.centerY.equalToSuperview()
+                    make.leading.equalToSuperview().offset(65)
+                    make.width.equalTo(65)
+                    make.height.equalTo(65)
+                }
+            }
+        
+            // Crown 
+            if let imgCrown = UIImage(named: "u2_004") {
+                self.imvCrown.image = imgCrown
+                self.contentView.addSubview(self.imvCrown)
+                imvCrown.snp.makeConstraints({ (make) in
+                    make.centerX.equalTo(imv.snp.centerX).offset(20)
+                    make.bottom.equalTo(imv.snp.top)
+                    make.width.equalTo(imgCrown.size.width / UIScreen.bl.scale())
+                    make.height.equalTo(imgCrown.size.height / UIScreen.bl.scale())
+                })
+            }
+            
+            // Arrow
+            if let imgArrow = UIImage(named: "u2_006") {
+                self.imvArrow.image = imgArrow
+                self.contentView.addSubview(self.imvArrow)
+                imvArrow.snp.makeConstraints({ (make) in
+                    make.centerY.equalToSuperview()
+                    make.left.equalTo(imv.snp.right).offset(10)
+                    make.width.equalTo(imgArrow.size.width / UIScreen.bl.scale())
+                    make.height.equalTo(imgArrow.size.height / UIScreen.bl.scale())
+                })
+            }
+        
+            // Pet Name
+            itemName.text = model?.name
+            itemName.textColor = UIColor.mmdd.mainCr
+            self.contentView.addSubview(itemName)
+            self.itemName.snp.makeConstraints { (make) in
+                make.centerY.equalToSuperview()
+                make.left.equalTo(imvArrow.snp.right).offset(10)
+                make.width.equalTo(120)
+                make.height.equalTo(50)
+            }
+        
+            // Pen
+            if let imgPen = UIImage(named: "u2_001") {
+                self.imvPen.image = imgPen
+                self.contentView.addSubview(self.imvPen)
+                imvPen.snp.makeConstraints({ (make) in
+                    make.centerY.equalToSuperview()
+                    make.trailing.equalToSuperview().offset(-40)
+                    make.width.equalTo(imgPen.size.width / UIScreen.bl.scale())
+                    make.height.equalTo(imgPen.size.height / UIScreen.bl.scale())
+                })
+            }
+        
+            // lbEdit
+            lbEdit.text = "編輯"
+            lbEdit.font = UIFont.systemFont(ofSize: 10)
+            self.contentView.addSubview(lbEdit)
+            self.lbEdit.snp.makeConstraints { (make) in
+                make.centerY.equalToSuperview().offset(5)
+                make.left.equalTo(imvPen.snp.right).offset(0)
+                make.width.equalTo(30)
+                make.height.equalTo(20)
+            }
+    } // fin layout
 }
 
 // MARK: Protocols
@@ -99,7 +161,6 @@ class PetListViewController: UIViewController, GlobalUI {
     // MARK: Variables
     var petItems = [PetItemInfo]()
     let petAddForm = PetAddFormModule().view
-//    let memoAddForm = MemoAddFormModule().view
     let petCellId = "petCellId"
     var list:UITableView!
     let dbg = DisposeBag()
@@ -267,7 +328,7 @@ extension PetListViewController: UITableViewDataSource {
 
 extension PetListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 72
+        return 104
     }
 
     //If you want to change title
