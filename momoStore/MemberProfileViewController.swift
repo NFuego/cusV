@@ -202,7 +202,7 @@ public class MemberProfileViewController: UIViewController , GlobalUI {
         self.title = "陳小美"
         self.navigationController?.navigationBar.barStyle = .blackOpaque
         self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.barTintColor = UIColor.barCr
+        self.navigationController?.navigationBar.barTintColor = UIColor.mmdd.mainCr
         self.navigationController?.navigationBar.tintColor = .white
         
         let back = UIBarButtonItem(title: "返回", style: .plain, target: self, action: #selector(self.back))

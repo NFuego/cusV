@@ -60,7 +60,7 @@ class PetAddFormViewController: FormViewController, GlobalUI, GlobalAlert {
         
         self.navigationController?.navigationBar.barStyle = .blackOpaque
         self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.barTintColor = UIColor.barCr
+        self.navigationController?.navigationBar.barTintColor = UIColor.mmdd.mainCr
         self.navigationController?.navigationBar.tintColor = .white
         self.title = "新增寵物"
         let back = UIBarButtonItem(title: "返回", style: .plain, target: self, action: #selector(self.back))

@@ -214,7 +214,7 @@ class AdvertisementViewController : UIViewController, UICollectionViewDataSource
         
         self.navigationController?.navigationBar.barStyle = .blackOpaque
         self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.barTintColor = CustomerAppCr.navBar
+        self.navigationController?.navigationBar.barTintColor = UIColor.mmdd.mainCr
         self.navigationController?.navigationBar.tintColor = .white
 		self.view.backgroundColor = .white
         // Do any additional setup after loading the view, typically from a nib.

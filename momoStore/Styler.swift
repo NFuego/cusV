@@ -17,7 +17,7 @@ class Styler {
         
         vc.navigationController?.navigationBar.barStyle = .blackOpaque
         vc.navigationController?.navigationBar.isTranslucent = false
-        vc.navigationController?.navigationBar.barTintColor = CustomerAppCr.navBar
+        vc.navigationController?.navigationBar.barTintColor = UIColor.mmdd.mainCr
         vc.navigationController?.navigationBar.tintColor = .white
     }
     

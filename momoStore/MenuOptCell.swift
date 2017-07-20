@@ -238,10 +238,16 @@ class RecordOptCell : UITableViewCell {
     let lbDescrip = UILabel()
     let lbPetName = UILabel()
     
+    
+    // mock
+    let imv = UIImageView()
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        //        print("awake")
+        self.contentView.addSubview(imv)
+        
+        /*
         self.contentView.addSubview(lbStart)
         self.contentView.addSubview(lbEnd)
         self.contentView.addSubview(lbPetName)
@@ -281,6 +287,7 @@ class RecordOptCell : UITableViewCell {
             make.top.equalTo(lbStatus.snp.bottom)
             
         }
+ */
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -300,6 +307,7 @@ class RecordOptCell : UITableViewCell {
     }
     
     func update(_ record:RecordOpt){
+        
         let date = DateInRegion()
         let str = date.string(format: .custom("yyyy-MM-dd HH:mm")) // example output: 2016-09-28 13:48:17
         
@@ -308,6 +316,16 @@ class RecordOptCell : UITableViewCell {
         lbPetName.text = "寵物:\(record.pet_name)"
         lbStatus.text = "狀態:\(record.status)"
         lbDescrip.text = "備註:\(record.description)"
+        
+        
+        // TODO mock
+        imv.image = UIImage(named:"record")
+        imv.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+            make.width.equalTo(1364/4)
+            make.height.equalTo(386/4)
+        }
+    
     }
 }
 

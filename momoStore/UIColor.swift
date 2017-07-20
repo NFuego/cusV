@@ -22,13 +22,12 @@ extension UIColor {
     }
     
     struct mmdd {
-        
         // use for large area coloring
         static let mainCr = UIColor(hex:"D6694C")
         
-        
         // use for text color
         static let baseCr2 = UIColor(hex:"85CBFF")
+        static let cellCr = UIColor(hex:"EDC2A5")
     }
 }
 

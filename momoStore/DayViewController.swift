@@ -69,7 +69,7 @@ class DayViewController: UIViewController,GlobalUI {
         
         self.navigationController?.navigationBar.barStyle = .blackOpaque
         self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.barTintColor = UIColor(hex: "FF4081")
+        self.navigationController?.navigationBar.barTintColor = UIColor.mmdd.mainCr
         self.navigationController?.navigationBar.tintColor = .white
         
 

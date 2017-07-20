@@ -76,10 +76,9 @@ class MemberViewController: UIViewController {
     
     func setup() {
         self.title = "會員"
-        let navColor = UIColor(colorLiteralRed: 1, green: 64/255.0, blue: 129/255.0, alpha: 1)
         self.navigationController?.navigationBar.barStyle = .blackOpaque
         self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.barTintColor = navColor
+        self.navigationController?.navigationBar.barTintColor = UIColor.mmdd.mainCr
         self.navigationController?.navigationBar.tintColor = .white
 //        self.edgesForExtendedLayout = .top
 //        self.extendedLayoutIncludesOpaqueBars = true

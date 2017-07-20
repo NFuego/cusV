@@ -1,6 +1,4 @@
-
 import SwiftyJSON
-
 import UIKit
 
 public struct RecordOpt {
@@ -19,7 +17,6 @@ public struct RecordOpt {
 //    },
 }
 
-
 public class RecordList : OptsVC , GlobalUI {
     var list = [RecordOpt]()
 
@@ -31,7 +28,7 @@ public class RecordList : OptsVC , GlobalUI {
     override func preSet(){
         self.navigationController?.navigationBar.barStyle = .blackOpaque
         self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.barTintColor = UIColor.barCr
+        self.navigationController?.navigationBar.barTintColor = UIColor.mmdd.mainCr
         self.navigationController?.navigationBar.tintColor = .white
         self.title = "紀錄"
         let back = UIBarButtonItem(title: "返回", style: .plain, target: self, action: #selector(self.back))
@@ -74,7 +71,6 @@ public class RecordList : OptsVC , GlobalUI {
                 }}.addDisposableTo(dbg)
     } // fin viewllWillAppear
     
-    
     override func cellForRow(_ listView: UITableView, idx: IndexPath) -> UITableViewCell {
         let cell = listView.dequeueReusableCell(withIdentifier: idt, for: idx) as! RecordOptCell
 //        cell.prepareForReuse()
@@ -83,7 +79,6 @@ public class RecordList : OptsVC , GlobalUI {
 //        cell.selectionStyle = .none
 //        cell.separatorInset = .zero
 //        cell.layoutMargins = .zero
-
         let opt = list[idx.row]
         cell.update(opt)
         return cell
@@ -95,6 +90,11 @@ public class RecordList : OptsVC , GlobalUI {
     
     override public func showVC(_ vc: UIViewController) {
         
+    }
+    
+    
+    public override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 386/4
     }
 
 

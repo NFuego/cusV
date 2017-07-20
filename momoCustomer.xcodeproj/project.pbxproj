@@ -104,6 +104,12 @@
 		4B769DB21E75177D00AECD3B /* CustomerDayRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B769DAD1E75177D00AECD3B /* CustomerDayRouter.swift */; };
 		4B769DB31E75177D00AECD3B /* CustomerDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B769DAE1E75177D00AECD3B /* CustomerDayViewController.swift */; };
 		4BA75A631F1F8AC100E85F3A /* UIScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA75A621F1F8AC100E85F3A /* UIScreen.swift */; };
+		4BA7BA4E1F204B740035A7FF /* mock.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BA7BA4D1F204B740035A7FF /* mock.xcassets */; };
+		4BA7BA551F205D1D0035A7FF /* CustomerInfoInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA7BA501F205D1D0035A7FF /* CustomerInfoInteractor.swift */; };
+		4BA7BA561F205D1D0035A7FF /* CustomerInfoModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA7BA511F205D1D0035A7FF /* CustomerInfoModule.swift */; };
+		4BA7BA571F205D1D0035A7FF /* CustomerInfoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA7BA521F205D1D0035A7FF /* CustomerInfoPresenter.swift */; };
+		4BA7BA581F205D1D0035A7FF /* CustomerInfoRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA7BA531F205D1D0035A7FF /* CustomerInfoRouter.swift */; };
+		4BA7BA591F205D1D0035A7FF /* CustomerInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA7BA541F205D1D0035A7FF /* CustomerInfoViewController.swift */; };
 		4BA8B4FB1F1F9FA0008134D6 /* PetList.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BA8B4FA1F1F9FA0008134D6 /* PetList.xcassets */; };
 		4BA8B4FD1F1FA21A008134D6 /* Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA8B4FC1F1FA21A008134D6 /* Transformer.swift */; };
 		4BA8B4FF1F1FB7B6008134D6 /* PetEdit.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BA8B4FE1F1FB7B6008134D6 /* PetEdit.xcassets */; };
@@ -409,6 +415,12 @@
 		4B769DAD1E75177D00AECD3B /* CustomerDayRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerDayRouter.swift; sourceTree = "<group>"; };
 		4B769DAE1E75177D00AECD3B /* CustomerDayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerDayViewController.swift; sourceTree = "<group>"; };
 		4BA75A621F1F8AC100E85F3A /* UIScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScreen.swift; sourceTree = "<group>"; };
+		4BA7BA4D1F204B740035A7FF /* mock.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = mock.xcassets; sourceTree = "<group>"; };
+		4BA7BA501F205D1D0035A7FF /* CustomerInfoInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerInfoInteractor.swift; sourceTree = "<group>"; };
+		4BA7BA511F205D1D0035A7FF /* CustomerInfoModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerInfoModule.swift; sourceTree = "<group>"; };
+		4BA7BA521F205D1D0035A7FF /* CustomerInfoPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerInfoPresenter.swift; sourceTree = "<group>"; };
+		4BA7BA531F205D1D0035A7FF /* CustomerInfoRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerInfoRouter.swift; sourceTree = "<group>"; };
+		4BA7BA541F205D1D0035A7FF /* CustomerInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerInfoViewController.swift; sourceTree = "<group>"; };
 		4BA8B4FA1F1F9FA0008134D6 /* PetList.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PetList.xcassets; sourceTree = "<group>"; };
 		4BA8B4FC1F1FA21A008134D6 /* Transformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transformer.swift; sourceTree = "<group>"; };
 		4BA8B4FE1F1FB7B6008134D6 /* PetEdit.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PetEdit.xcassets; sourceTree = "<group>"; };
@@ -869,9 +881,22 @@
 			name = customerDay;
 			sourceTree = "<group>";
 		};
+		4BA7BA4F1F205B5A0035A7FF /* customerInfo */ = {
+			isa = PBXGroup;
+			children = (
+				4BA7BA501F205D1D0035A7FF /* CustomerInfoInteractor.swift */,
+				4BA7BA511F205D1D0035A7FF /* CustomerInfoModule.swift */,
+				4BA7BA521F205D1D0035A7FF /* CustomerInfoPresenter.swift */,
+				4BA7BA531F205D1D0035A7FF /* CustomerInfoRouter.swift */,
+				4BA7BA541F205D1D0035A7FF /* CustomerInfoViewController.swift */,
+			);
+			name = customerInfo;
+			sourceTree = "<group>";
+		};
 		4BCA7DC91E08698800C42763 /* modules */ = {
 			isa = PBXGroup;
 			children = (
+				4BA7BA4F1F205B5A0035A7FF /* customerInfo */,
 				E7D2D4641ECC523000A3763F /* petList */,
 				4B769D9C1E75131600AECD3B /* customer */,
 				4B432EEF1E08A95D0049B3C6 /* memProfile */,
@@ -1021,6 +1046,7 @@
 				E7310F5F1EDFD73E00BDD4D9 /* login.xcassets */,
 				4BA8B4FA1F1F9FA0008134D6 /* PetList.xcassets */,
 				4BA8B4FE1F1FB7B6008134D6 /* PetEdit.xcassets */,
+				4BA7BA4D1F204B740035A7FF /* mock.xcassets */,
 			);
 			name = img;
 			sourceTree = "<group>";
@@ -1337,6 +1363,7 @@
 			files = (
 				4B70DEAB1E0760E2000D9D5A /* LaunchScreen.storyboard in Resources */,
 				E78993A31E72960F0011BA71 /* Localizable.strings in Resources */,
+				4BA7BA4E1F204B740035A7FF /* mock.xcassets in Resources */,
 				4B70DEA81E0760E2000D9D5A /* Assets.xcassets in Resources */,
 				4BA8B4FF1F1FB7B6008134D6 /* PetEdit.xcassets in Resources */,
 				E7A00FDF1E972DDF00EC33A6 /* EPContactCell.xib in Resources */,
@@ -1425,6 +1452,8 @@
 				E7A00FED1E97314900EC33A6 /* MemoAddFormRouter.swift in Sources */,
 				4BA75A631F1F8AC100E85F3A /* UIScreen.swift in Sources */,
 				4BCA7E091E086C7800C42763 /* WeekViewController.swift in Sources */,
+				4BA7BA551F205D1D0035A7FF /* CustomerInfoInteractor.swift in Sources */,
+				4BA7BA561F205D1D0035A7FF /* CustomerInfoModule.swift in Sources */,
 				E7A00FD41E972CB800EC33A6 /* MemoRouter.swift in Sources */,
 				4B769D6A1E73F58500AECD3B /* AppointProfileModule.swift in Sources */,
 				E7A00FEB1E97314900EC33A6 /* MemoAddFormModule.swift in Sources */,
@@ -1510,6 +1539,7 @@
 				E7310F5B1EDFD29500BDD4D9 /* LoginModule.swift in Sources */,
 				E7D2D4881ECCED5000A3763F /* PetAddFormInteractor.swift in Sources */,
 				4BCA7E2E1E086C9500C42763 /* MemberRouter.swift in Sources */,
+				4BA7BA591F205D1D0035A7FF /* CustomerInfoViewController.swift in Sources */,
 				4B769DA61E75135100AECD3B /* PlanPresenter.swift in Sources */,
 				4B769D8D1E74CD1900AECD3B /* AppointmentDayModule.swift in Sources */,
 				4B5323D21E15355800EF41D8 /* OpenTimeModule.swift in Sources */,
@@ -1527,6 +1557,7 @@
 				E7BA43331ECD165300324F9C /* AdPagerRouter.swift in Sources */,
 				4BFD43A11E75296D00DEF11F /* AppointStoreMonthViewController.swift in Sources */,
 				4B5323C81E1532D800EF41D8 /* OpenTimeCell.swift in Sources */,
+				4BA7BA581F205D1D0035A7FF /* CustomerInfoRouter.swift in Sources */,
 				E7BA433F1ECD197300324F9C /* StoreShopRouter.swift in Sources */,
 				4B769D6D1E73F58500AECD3B /* AppointProfileViewController.swift in Sources */,
 				4B432F011E08A97F0049B3C6 /* MemberProfileViewController.swift in Sources */,
@@ -1565,6 +1596,7 @@
 				4B769D9B1E7512F800AECD3B /* ContactsViewController.swift in Sources */,
 				4BCA7E031E086C7800C42763 /* WeekPresenter.swift in Sources */,
 				E7A00FE01E972DDF00EC33A6 /* EPContactsPicker.swift in Sources */,
+				4BA7BA571F205D1D0035A7FF /* CustomerInfoPresenter.swift in Sources */,
 				4B769D8E1E74CD1900AECD3B /* AppointmentDayPresenter.swift in Sources */,
 				4B5323E81E15400800EF41D8 /* ScheduleView.swift in Sources */,
 				4B4B4DF61E70396500E33E2F /* AppApreance.swift in Sources */,

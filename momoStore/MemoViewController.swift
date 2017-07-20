@@ -40,15 +40,22 @@ struct MemoItem {
     var detail:String?
     var id:Int?
     // todo : local schedule
+    
+    var listIdx:Int?
 }
 
 class MemoItemCell : UITableViewCell {
     let itemName:UILabel
     let itemDetail:UILabel
+    
+    // mock
+    let imv:UIImageView
 
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         itemName = UILabel()
         itemDetail = UILabel()
+        imv = UIImageView()
+        
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         self.selectionStyle = .none
@@ -62,6 +69,7 @@ class MemoItemCell : UITableViewCell {
 
     var model: MemoItem? {
         didSet {
+            /*
             itemName.text = model?.createdAt
             self.contentView.addSubview(itemName)
             self.itemName.snp.makeConstraints { (make) in
@@ -80,6 +88,20 @@ class MemoItemCell : UITableViewCell {
                 make.width.equalTo(150)
                 make.height.equalTo(50)
             }
+             
+ */
+            self.contentView.addSubview(imv)
+            if (model?.listIdx)! % 2 == 0 {
+                imv.image = UIImage(named:"memoM2")
+            } else {
+                imv.image = UIImage(named:"memoM1")
+            }
+            imv.snp.makeConstraints { (make) in
+                make.center.equalToSuperview()
+                make.width.equalTo(1364/4)
+                make.height.equalTo(386/4)
+            }
+            // mock
         }
     } // fin model
     
@@ -125,10 +147,6 @@ class MemoViewController: UIViewController, GlobalUI {
 
 	// MARK: - Load Functions
     func preSet(){
-//        self.navigationController?.navigationBar.barStyle = .blackOpaque
-//        self.navigationController?.navigationBar.isTranslucent = false
-//        self.navigationController?.navigationBar.barTintColor = UIColor.barCr
-//        self.navigationController?.navigationBar.tintColor = .white
         self.title = "行事曆"
         Styler.styleNavBar(self)
         let back = UIBarButtonItem(title: "返回", style: .plain, target: self, action: #selector(self.back))
@@ -146,13 +164,7 @@ class MemoViewController: UIViewController, GlobalUI {
     	super.viewDidLoad()
 		presenter.viewLoaded()
 
-        /*
-        self.navigationController?.navigationBar.barStyle = .blackOpaque
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.barTintColor = UIColor.barCr
-        self.navigationController?.navigationBar.tintColor = .white
-        self.title = "預約"
- */
+
         let add = UIBarButtonItem(title: "增加", style: .plain, target: self, action: #selector(self.addMemoItem))
         self.navigationItem.rightBarButtonItem = add
 
@@ -201,7 +213,7 @@ class MemoViewController: UIViewController, GlobalUI {
 //                        ],
                     let json = JSON(data:response.data)
                     self.memoItems = (json.dictionaryValue["data"]?.arrayValue.map({ (j:JSON) -> MemoItem in
-                        var r = MemoItem(createdAt: "", detail: "", id: 0)
+                        var r = MemoItem(createdAt: "", detail: "", id: 0, listIdx: 0)
                         r.id = j["id"].intValue
                         r.createdAt = j["datetime"].stringValue
                         r.detail = j["description"].stringValue
@@ -246,7 +258,9 @@ extension MemoViewController: MemoPresenterViewProtocol {
 extension MemoViewController : UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        let cell = list.dequeueReusableCell(withIdentifier: memoCellId) as! MemoItemCell
-        cell.model = self.memoItems[indexPath.row]
+        var m = self.memoItems[indexPath.row]
+        m.listIdx = indexPath.item
+        cell.model = m
         return cell
     }
 
@@ -262,7 +276,7 @@ extension MemoViewController : UITableViewDataSource {
 
 extension MemoViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 386/4
     }
 
     //If you want to change title

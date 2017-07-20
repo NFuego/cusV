@@ -89,10 +89,7 @@ class CustomerDayViewController: UIViewController, GlobalUI {
     
     // MARK: - Load Functions
     func preSet(){
-        //        self.navigationController?.navigationBar.barStyle = .blackOpaque
-        //        self.navigationController?.navigationBar.isTranslucent = false
-        //        self.navigationController?.navigationBar.barTintColor = UIColor.barCr
-        //        self.navigationController?.navigationBar.tintColor = .white
+     
         self.title = "行事曆"
         Styler.styleNavBar(self)
         let back = UIBarButtonItem(title: "返回", style: .plain, target: self, action: #selector(self.back))
@@ -170,7 +167,7 @@ class CustomerDayViewController: UIViewController, GlobalUI {
                     //                        ],
                     let json = JSON(data:response.data)
                     self.memoItems = (json.dictionaryValue["data"]?.arrayValue.map({ (j:JSON) -> MemoItem in
-                        var r = MemoItem(createdAt: "", detail: "", id: 0)
+                        var r = MemoItem(createdAt: "", detail: "", id: 0, listIdx: 0)
                         r.id = j["id"].intValue
                         r.createdAt = j["datetime"].stringValue
                         r.detail = j["description"].stringValue
@@ -210,7 +207,9 @@ extension CustomerDayViewController {
 extension CustomerDayViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = list.dequeueReusableCell(withIdentifier: memoCellId) as! MemoItemCell
-        cell.model = self.memoItems[indexPath.row]
+        var m = self.memoItems[indexPath.row]
+        m.listIdx = indexPath.item
+        cell.model = m
         return cell
     }
     
@@ -226,7 +225,7 @@ extension CustomerDayViewController: UITableViewDataSource {
 
 extension CustomerDayViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 386/4
     }
     
     //If you want to change title

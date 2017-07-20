@@ -49,10 +49,6 @@ class CodeBarViewController: UIViewController {
 	// MARK: - Load Functions
     
     func preSet(){
-//        self.navigationController?.navigationBar.barStyle = .blackOpaque
-//        self.navigationController?.navigationBar.isTranslucent = false
-//        self.navigationController?.navigationBar.barTintColor = UIColor.barCr
-//        self.navigationController?.navigationBar.tintColor = .white
         self.title = "行動條碼"
         Styler.styleNavBar(self)
         let back = UIBarButtonItem(title: "返回", style: .plain, target: self, action: #selector(self.back))
@@ -74,19 +70,19 @@ class CodeBarViewController: UIViewController {
 		view.backgroundColor = .white
         self.view.addSubview(imageDisplayed)
         self.imageDisplayed.snp.makeConstraints { (make) in
-            make.size.equalTo(100)
+            make.size.equalTo(150)
             make.center.equalToSuperview()
         }
         
         // button
         displayBtn.setTitle("顯示行動條碼", for: .normal)
         displayBtn.setTitleColor(.white, for: .normal)
-        displayBtn.backgroundColor = CustomerAppCr.navBar
+        displayBtn.backgroundColor = UIColor.mmdd.baseCr2
         self.view.addSubview(displayBtn)
         
         readerBtn.setTitle("行動條碼掃秒器", for: .normal)
         readerBtn.setTitleColor(.white, for: .normal)
-        readerBtn.backgroundColor = CustomerAppCr.navBar
+        readerBtn.backgroundColor = UIColor.mmdd.mainCr
         self.view.addSubview(readerBtn)
         displayBtn.snp.makeConstraints { (make) in
             make.width.equalToSuperview().multipliedBy(0.48)

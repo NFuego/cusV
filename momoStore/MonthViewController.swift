@@ -27,6 +27,7 @@ class MonthViewController: UIViewController ,GlobalUI {
     let recordVC = UINavigationController(rootViewController: RecordList())
     let codebarVC = CodeBarModule().view
     let appointVC = AppoinmentsListModule().view
+    let customerInfoVC = CustomerInfoModule().view
     let memoVC = MemoModule().view
     var appointList = [AppointmentOpt]()
     let dbg = DisposeBag()
@@ -43,10 +44,6 @@ class MonthViewController: UIViewController ,GlobalUI {
     
     var appointmentDates = [String]()
 
-    let stoken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6XC9cLzU0LjE0NS4xNjQuNDQ6ODg4OFwvYXBpXC91c2VyXC9sb2dpbiIsImlhdCI6MTQ4NTM4NzkxMSwiZXhwIjoxNDkzMjc3MTMxLCJuYmYiOjE0ODUzODc5MTEsImp0aSI6ImJmYmEyMjkwZmZlZTFhZWRmMjRmYTZhZTE2ZDQwMGRlIn0.qXjz2Vxf-07Wpdc-0JCO2eqt2CrfcOeUr2G6cV5Ufcg"
-    
-    let ctoken =      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsImlzcyI6Imh0dHA6XC9cLzU0LjE0NS4xNjQuNDQ6ODg4OFwvYXBpXC91c2VyXC9sb2dpbiIsImlhdCI6MTQ5MTQ4MjYxOSwiZXhwIjoxNDk5MzcxODM5LCJuYmYiOjE0OTE0ODI2MTksImp0aSI6IjVjZmEyMTlmYzIwOTI2MDA1NjQ3OWVhMDUzNDVjNTRkIn0.9fHjdur30AtfkjQ5iS_bZjBX0tjjiQBUQndBCYqNhtI"
-    
 	// MARK: - Constants
 	let presenter: MonthViewPresenterProtocol
 
@@ -56,11 +53,11 @@ class MonthViewController: UIViewController ,GlobalUI {
     let darkPurple = UIColor(colorWithHexValue: 0x3A284C)
     let dimPurple = UIColor(colorWithHexValue: 0x574865)
     
-    
     var recordBtn = NavBarBtn(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
     var memoBtn = NavBarBtn(frame: CGRect(x: 0, y: 0, width: 60, height: 40))
     var memoNav:UINavigationController!
     var codebarBtn = NavBarBtn(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+    var customerInfoBtn = NavBarBtn(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
     
     var appointmentsBtn = NavBarBtn(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
 
@@ -94,7 +91,7 @@ extension MonthViewController: MonthPresenterViewProtocol {
         
         self.navigationController?.navigationBar.barStyle = .blackOpaque
         self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.barTintColor = UIColor(hex: "FF4081")
+        self.navigationController?.navigationBar.barTintColor = UIColor.mmdd.mainCr
         self.navigationController?.navigationBar.tintColor = .white
         
 //        print(self.view.frame)
@@ -223,6 +220,12 @@ extension MonthViewController {
         codebarBtn.addTarget(self, action: #selector(codebarBtnHandle), for: .touchUpInside)
         let codeBarBtnItem  = UIBarButtonItem(customView: codebarBtn)
         
+        customerInfoBtn.setTitle("設定", for: .normal)
+        customerInfoBtn.setTitleColor(.white, for: .normal)
+        customerInfoBtn.setTitleColor(.black, for: .highlighted)
+        customerInfoBtn.addTarget(self, action: #selector(customerInfoBtnHandle), for: .touchUpInside)
+        let customerInfoItem  = UIBarButtonItem(customView: customerInfoBtn)
+        
         
 //        record.target = self
 //        record.action = #selector(self.recordBtnHandle)
@@ -244,9 +247,15 @@ extension MonthViewController {
         //        navigationItem.rightBarButtonItem = rightButton
         
         //        navigationItem.rightBarButtonItems = [rightButton,rightButton2]
+        navigationItem.leftBarButtonItems = [customerInfoItem]
         navigationItem.rightBarButtonItems = [codeBarBtnItem,memo,record]
     }
     
+    func customerInfoBtnHandle(){
+        let navAppointVC = UINavigationController(rootViewController: customerInfoVC )
+       customerInfoVC.preSet()
+       self.navigationController?.present(navAppointVC, animated: true)
+    }
     
     func recordBtnHandle(){
        self.navigationController?.present(recordVC, animated: true)
@@ -316,8 +325,9 @@ extension MonthViewController : JTAppleCalendarViewDataSource, JTAppleCalendarVi
         if cell.dayLabel != nil {
             if cellState.dateBelongsTo == .thisMonth {
                 // this month
-                cell.dayLabel.textColor = .black
-                cell.foreView.backgroundColor = .white
+                cell.dayLabel.textColor = .white
+                cell.dayLabel.backgroundColor = UIColor.mmdd.baseCr2
+                cell.foreView.backgroundColor = UIColor.mmdd.cellCr
 //                cell.backgroundColor = .black
                 
 //                print(cellState.day.rawValue)
@@ -366,8 +376,9 @@ extension MonthViewController : JTAppleCalendarViewDataSource, JTAppleCalendarVi
                 }
             } else {
                 // not this month
-                cell.dayLabel.textColor = UIColor.white
-                cell.foreView.backgroundColor = UIColor.restDay
+                cell.dayLabel.textColor = UIColor.mmdd.baseCr2
+                cell.dayLabel.backgroundColor = UIColor.mmdd.baseCr2
+                cell.foreView.backgroundColor = UIColor.mmdd.cellCr
             }
         }
     } // fin handleCellTextColor
@@ -540,8 +551,10 @@ extension MonthViewController : JTAppleCalendarViewDataSource, JTAppleCalendarVi
     func calendar(_ calendar: JTAppleCalendarView, willDisplaySectionHeader header: JTAppleHeaderView, range: (start: Date, end: Date), identifier: String) {
 //        print(range.start)
         let headerCell  = header as? CellHeader
-        let headerMsg = "\(range.start.string(custom: "yyyy-MM-dd")) ~ \(range.end.string(custom: "yyyy-MM-dd"))"
+//        let headerMsg = "\(range.start.string(custom: "yyyy-MM-dd")) ~ \(range.end.string(custom: "yyyy-MM-dd"))"
+        let headerMsg = "\(range.start.string(custom: "yyyy-MM"))"
         headerCell?.dayLabel.text = headerMsg
+        headerCell?.dayLabel.textAlignment = .center
         headerCell?.backgroundColor = .blue
         headerCell?.update()
     }

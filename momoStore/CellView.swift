@@ -32,7 +32,7 @@ class CellView: JTAppleDayCellView {
 //        dayLabel.backgroundColor = .blue
 //        backView.backgroundColor = .black
 //        self.backgroundColor = .black
-        self.backgroundColor = .gray
+        self.backgroundColor = UIColor.white 
 //        foreView.backgroundColor = .white
         foreView.backgroundColor = .white
         self.bringSubview(toFront: foreView)
